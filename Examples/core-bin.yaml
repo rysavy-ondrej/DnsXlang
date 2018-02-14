@@ -1,0 +1,43 @@
+# this is a source file for kaitai parser generator
+meta:
+  id: dns_types
+seq:
+  - id: skip
+    type: u2be
+  - id: rtype
+    type: u2be
+  - id: rclass
+    type: u2be
+  - id: ttl
+    type: u4be
+  - id: rlen
+    type: u2be
+  - id: rdata
+    size: rlen
+    type:
+      switch-on: rtype
+      cases:
+        '1': rrtype_1
+        '5': rrtype_5
+        
+types:
+  rrtype_1: # A
+    seq:
+      - id: addr
+        type: type_a
+  rrtype_5: # CNAME
+    seq:
+      - id: host
+        type: type_n
+  type_a:
+    seq:
+      - id: value
+        type: u4be
+  type_n:
+    seq:
+      - id: len
+        type: u1
+      - id: value
+        type: str
+        size: len
+        encoding: ascii

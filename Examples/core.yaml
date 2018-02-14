@@ -153,3 +153,7 @@ types:
     type: str
   AAAA: 
     type: str
+bin-types:
+  S:
+    type:
+  SM: 
