@@ -1,0 +1,155 @@
+records:
+  # A:1:I a host address [RFC1035]
+  #   A:addr IPv4 address
+  a:
+    rrtype: 1
+    type: I
+    description: 
+      en: a host address 
+    seq:
+      - tag: addr
+        type: A
+        description:
+        en: IPv4 address
+  # NS:2:A an authoritative name server [RFC1035]
+  #   N[C]:host Host name
+  ns: 
+    rrtype: 2
+    type: A
+    description: 
+      en: an authoritative name server
+    seq:
+      - tag: host
+        type: N[C]
+        description: 
+          en: Host name
+  # CNAME:5:A the canonical name for an alias [RFC1035]
+  #   N[C]:host Host name 
+  cname:
+    rrtype: 5
+    description:
+      en: the canonical name for an alias
+    seq:
+      - tag: host
+        type: N[C]
+        description:
+          en: Host name 
+  # SOA:6:A marks the start of a zone of authority [RFC1035]
+  #   N[C]:primary Primary server name
+  #   N[A]:mailbox Responsible mailbox
+  #   I4:serial Serial number
+  #   I4:refresh Refresh time (seconds)
+  #   I4:retry Retry time (seconds)
+  #   I4:expire Expire time (seconds)
+  #   I4:minimum Minium time (seconds)
+  soa:
+    rrtype: 6
+    type: A
+    description:  
+      en: marks the start of a zone of authority
+    seq:
+      - tag: primary
+        type: N[C]
+        description:
+          en: Primary server name
+      - tag: mailbox
+        type: N[A]
+        description:
+          en: Responsible mailbox
+      - tag: serial
+        type: I4
+        description:
+          en: Serial number
+      - tag: refresh
+        type: I4
+        description:
+          en:  Refresh time (seconds)
+      - tag: retry
+        type: I4
+        description:
+          en: Retry time (seconds)
+      - tag: expire
+        type: I4
+        description:
+          en: Expire time (seconds)
+      - tag: minimum
+        type: I4
+        description:
+          en: Minium time (seconds)
+  # MX:15:A mail exchange [RFC1035]
+  #   I2:priority Priority (lower values are higher priority)
+  #   N[C]:hostname Host name
+  mx:
+    rrtype: 15
+    type: A
+    description: 
+      en: Mail Exchanger
+    seq:
+      - tag: priority
+        type: I2
+        description: 
+          en: Priority (lower values are higher priority)
+          cz: Priorita (menší hodonota je větší priorita)
+          fr: Priorité (les valeurs inférieures sont prioritaires)
+      - tag: exchanger
+        type: N[C]
+        description: 
+          en: Host name
+          cz: Název hostitele
+          fr: Nom d'hôte
+  # SRV:33:I Server Selection [1][RFC2782]
+  #   I2:priority Priority
+  #   I2:weight Weight
+  #   I2:port Port
+  #   N:target Target host name
+  srv:
+    rrtype: 33
+    type: I
+    description:
+      en: Service location 
+    seq:
+      - tag: priority
+        type: I2
+        description:
+          en: Priority
+      - tag: weight
+        type: I2
+        description:
+          en: Weight
+      - tag: port
+        type: I2
+        description:
+          en: Port
+      - tag: target
+        type: N
+        description:
+          en: Target host name
+types:
+  I1:
+    bin:
+      type: uint8
+    txt:
+      type: uint
+      radix: dec
+  I2:
+    bin: 
+      type: uint16
+      endian: be
+    txt:
+      type: uint
+      radix: dec
+  I4:
+    bin:
+      type: uint32
+      endian: be
+    txt:
+      type: uint
+      radix: dec
+  N:
+    txt:
+      type: str
+      regex: ^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$
+  A:
+    type: str
+  AAAA: 
+    type: str
